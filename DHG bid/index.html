@@ -31,7 +31,6 @@
             overflow-x: hidden;
         }
         
-        /* Animated background grid */
         body::before {
             content: '';
             position: fixed;
@@ -66,14 +65,8 @@
         }
         
         @keyframes slideDown {
-            from {
-                transform: translateY(-100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
+            from { transform: translateY(-100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
         
         .header-content {
@@ -114,6 +107,19 @@
             letter-spacing: 0.05em;
         }
         
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--light);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        
         .refresh-btn {
             display: inline-flex;
             align-items: center;
@@ -129,24 +135,12 @@
             letter-spacing: 0.05em;
             cursor: pointer;
             transition: all 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
         }
         
         .refresh-btn:hover {
             background: #1976D2;
             transform: translateY(-2px);
-        }
-        
-        .live-dot {
-            width: 8px;
-            height: 8px;
-            background: var(--light);
-            border-radius: 50%;
-            animation: pulse 2s ease-in-out infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
         }
         
         main {
@@ -234,21 +228,6 @@
             box-shadow: 0 10px 30px rgba(33, 150, 243, 0.2);
         }
         
-        .auction-card::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(33, 150, 243, 0.1), transparent);
-            transition: left 0.5s ease;
-        }
-        
-        .auction-card:hover::after {
-            left: 100%;
-        }
-        
         .auction-image {
             width: 100%;
             height: 260px;
@@ -262,34 +241,12 @@
             overflow: hidden;
         }
         
-        .auction-image::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: repeating-linear-gradient(
-                45deg,
-                transparent,
-                transparent 10px,
-                rgba(255, 255, 255, 0.1) 10px,
-                rgba(255, 255, 255, 0.1) 20px
-            );
-            animation: moveStripes 20s linear infinite;
-        }
-        
         .auction-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             position: relative;
             z-index: 2;
-        }
-        
-        @keyframes moveStripes {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(50px, 50px); }
         }
         
         .auction-content {
@@ -408,30 +365,11 @@
             text-transform: uppercase;
             letter-spacing: 0.05em;
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            text-decoration: none;
-            display: inline-block;
             border-radius: 4px;
         }
         
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: #1976D2;
-            transition: left 0.3s ease;
-            z-index: -1;
-        }
-        
-        .btn:hover::before {
-            left: 0;
-        }
-        
         .btn:hover {
+            background: #1976D2;
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(33, 150, 243, 0.4);
         }
@@ -440,6 +378,26 @@
             width: 100%;
             padding: 1rem 1.5rem;
             font-size: 1rem;
+        }
+        
+        .bid-name-input {
+            width: 100%;
+            margin-bottom: 0.75rem;
+            padding: 1rem;
+            border: 2px solid var(--border);
+            background: var(--bg);
+            color: var(--dark);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+        }
+        
+        .bid-name-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: var(--light);
         }
         
         .empty-state {
@@ -452,6 +410,28 @@
             font-size: 4rem;
             margin-bottom: 1rem;
             opacity: 0.5;
+        }
+        
+        .auction-status {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.5rem 1rem;
+            background: var(--primary);
+            color: var(--light);
+            font-weight: 700;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border-radius: 4px;
+        }
+        
+        .status-ended {
+            background: var(--gray);
+        }
+        
+        .ended {
+            opacity: 0.6;
         }
         
         footer {
@@ -480,97 +460,21 @@
         }
         
         @keyframes slideInRight {
-            from {
-                transform: translateX(400px);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
+            from { transform: translateX(400px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
         }
         
         .notification.error {
             border-color: var(--primary);
         }
         
-        .ended {
-            opacity: 0.6;
-            pointer-events: none;
-        }
-        
-        .ended .timer-segment {
-            background: rgba(136, 136, 136, 0.1);
-            border-color: var(--gray);
-        }
-        
-        .ended .timer-value {
-            color: var(--gray);
-        }
-        
-        .auction-status {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            padding: 0.5rem 1rem;
-            background: var(--primary);
-            color: var(--light);
-            font-weight: 700;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            border-radius: 4px;
-        }
-        
-        .status-ended {
-            background: var(--gray);
-        }
-        
-        .bid-name-input {
-            width: 100%;
-            margin-bottom: 0.75rem;
-            padding: 1rem;
-            border: 2px solid var(--border);
-            background: var(--bg);
-            color: var(--dark);
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border-radius: 4px;
-        }
-        
-        .bid-name-input:focus {
-            outline: none;
-            border-color: var(--primary);
-            background: var(--light);
-        }
-        
         @media (max-width: 768px) {
-            header {
-                padding: 1.5rem 4%;
-            }
-            
-            .header-content {
-                justify-content: center;
-                text-align: center;
-            }
-            
-            h1 {
-                font-size: 2rem;
-            }
-            
-            main {
-                padding: 2rem 4%;
-            }
-            
-            .auctions-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .stats-bar {
-                grid-template-columns: 1fr;
-            }
+            header { padding: 1.5rem 4%; }
+            .header-content { justify-content: center; text-align: center; }
+            h1 { font-size: 2rem; }
+            main { padding: 2rem 4%; }
+            .auctions-grid { grid-template-columns: 1fr; }
+            .stats-bar { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -583,7 +487,7 @@
                     <div class="live-dot"></div>
                     Live Auctions
                 </div>
-                <button class="refresh-btn" onclick="refreshAuctions()">
+                <button class="refresh-btn" onclick="location.reload()">
                     🔄 Refresh
                 </button>
             </div>
@@ -622,199 +526,49 @@
         <p>&copy; 2025 DHG Bid. All bids are binding. Good luck!</p>
     </footer>
 
-    <script>
-        // Data Management
-        class AuctionViewer {
-            constructor() {
-                this.auctions = this.loadAuctions();
-                this.init();
-            }
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getDatabase, ref, onValue, update, push } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
 
-            loadAuctions() {
-                const saved = localStorage.getItem('bidstream_auctions');
-                return saved ? JSON.parse(saved) : [];
-            }
+        // ✅ YOUR FIREBASE CONFIG
+        const firebaseConfig = {
+            apiKey: "AIzaSyCNzUxUIK20CBqeQ2OWGutCSYft5-phmUE",
+            authDomain: "dhg-bid.firebaseapp.com",
+            databaseURL: "https://dhg-bid-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "dhg-bid",
+            storageBucket: "dhg-bid.firebasestorage.app",
+            messagingSenderId: "219398169982",
+            appId: "1:219398169982:web:1c5f2a61f426012b2d3f2f"
+        };
 
-            saveAuctions() {
-                localStorage.setItem('bidstream_auctions', JSON.stringify(this.auctions));
-            }
-
-            placeBid(auctionId, amount, bidderName) {
-                const auction = this.auctions.find(a => a.id === auctionId);
-                if (!auction) return false;
-
-                if (Date.now() > auction.endTime) {
-                    showNotification('This auction has ended!', true);
-                    return false;
-                }
-
-                if (amount <= auction.currentBid) {
-                    showNotification(`Bid must be higher than ₵${auction.currentBid.toFixed(2)}`, true);
-                    return false;
-                }
-                
-                if (!bidderName || bidderName.trim() === '') {
-                    showNotification('Please enter your name', true);
-                    return false;
-                }
-
-                auction.currentBid = amount;
-                auction.bids.push({
-                    amount: amount,
-                    bidderName: bidderName.trim(),
-                    timestamp: Date.now()
-                });
-                this.saveAuctions();
-                this.render();
-                showNotification(`Bid placed: ₵${amount.toFixed(2)}!`);
-                return true;
-            }
-
-            init() {
-                this.render();
-                // Update timers every second
-                setInterval(() => this.updateTimers(), 1000);
-                // Manually check for new auctions (removed auto-refresh)
-            }
-
-            updateTimers() {
-                this.auctions.forEach(auction => {
-                    const timerEl = document.getElementById(`timer-${auction.id}`);
-                    if (!timerEl) return;
-
-                    const remaining = Math.max(0, auction.endTime - Date.now());
-                    const hours = Math.floor(remaining / (1000 * 60 * 60));
-                    const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
-                    const seconds = Math.floor((remaining % (1000 * 60)) / 1000);
-
-                    timerEl.innerHTML = `
-                        <div class="timer-segment">
-                            <div class="timer-value">${hours.toString().padStart(2, '0')}</div>
-                            <div class="timer-label">Hours</div>
-                        </div>
-                        <div class="timer-segment">
-                            <div class="timer-value">${minutes.toString().padStart(2, '0')}</div>
-                            <div class="timer-label">Mins</div>
-                        </div>
-                        <div class="timer-segment">
-                            <div class="timer-value">${seconds.toString().padStart(2, '0')}</div>
-                            <div class="timer-label">Secs</div>
-                        </div>
-                    `;
-
-                    const card = timerEl.closest('.auction-card');
-                    if (remaining === 0 && card && !card.classList.contains('ended')) {
-                        card.classList.add('ended');
-                        this.render();
-                        showNotification(`Auction ended: ${auction.name}`);
-                    }
-                });
-            }
-
-            render() {
-                const grid = document.getElementById('auctionsGrid');
-                const activeAuctions = this.auctions.filter(a => Date.now() < a.endTime);
-                const endedAuctions = this.auctions.filter(a => Date.now() >= a.endTime);
-
-                if (this.auctions.length === 0) {
-                    grid.innerHTML = `
-                        <div class="empty-state">
-                            <div class="empty-state-icon">🔨</div>
-                            <p>No active auctions at the moment.<br>Check back soon!</p>
-                        </div>
-                    `;
-                } else {
-                    const allAuctions = [...activeAuctions, ...endedAuctions];
-                    grid.innerHTML = allAuctions.map(auction => this.renderAuctionCard(auction)).join('');
-                }
-
-                // Update stats
-                document.getElementById('activeCount').textContent = activeAuctions.length;
-                const totalBids = this.auctions.reduce((sum, a) => sum + a.bids.length, 0);
-                document.getElementById('totalBids').textContent = totalBids;
-                const highestBid = Math.max(0, ...this.auctions.map(a => a.currentBid));
-                document.getElementById('highestBid').textContent = `₵${highestBid.toFixed(0)}`;
-            }
-
-            renderAuctionCard(auction) {
-                const isEnded = Date.now() >= auction.endTime;
-                const statusBadge = isEnded 
-                    ? '<div class="auction-status status-ended">Ended</div>'
-                    : '<div class="auction-status">Live</div>';
-                
-                // Support both new image format and old emoji format
-                const imageContent = auction.image 
-                    ? `<img src="${auction.image}" alt="${auction.name}">`
-                    : `<span style="font-size: 4rem; position: relative; z-index: 1;">${auction.emoji || '🏷️'}</span>`;
-
-                return `
-                    <div class="auction-card ${isEnded ? 'ended' : ''}">
-                        ${statusBadge}
-                        <div class="auction-image">
-                            ${imageContent}
-                        </div>
-                        <div class="auction-content">
-                            <h3 class="auction-title">${auction.name}</h3>
-                            <p class="auction-description">${auction.description}</p>
-                            
-                            <div class="auction-meta">
-                                <div class="meta-item">
-                                    <div class="meta-label">Current Bid</div>
-                                    <div class="meta-value current-bid">₵${auction.currentBid.toFixed(2)}</div>
-                                </div>
-                                <div class="meta-item">
-                                    <div class="meta-label">Total Bids</div>
-                                    <div class="meta-value">${auction.bids.length}</div>
-                                </div>
-                            </div>
-                            
-                            <div class="timer" id="timer-${auction.id}"></div>
-                            
-                            ${!isEnded ? `
-                                <input type="text" 
-                                       class="bid-name-input" 
-                                       id="name-${auction.id}" 
-                                       placeholder="Your Name"
-                                       maxlength="50">
-                                <div class="bid-section">
-                                    <input type="number" 
-                                           class="bid-input" 
-                                           id="bid-${auction.id}" 
-                                           placeholder="${(auction.currentBid + 1).toFixed(2)}"
-                                           step="0.01"
-                                           min="${(auction.currentBid + 0.01).toFixed(2)}">
-                                    <button class="btn btn-bid" onclick="placeBid('${auction.id}')">Place Bid</button>
-                                </div>
-                            ` : `
-                                <div style="text-align: center; padding: 1rem; background: var(--bg); border: 1px solid var(--border); border-radius: 8px;">
-                                    <strong>Auction Ended</strong><br>
-                                    Final Bid: ₵${auction.currentBid.toFixed(2)}
-                                </div>
-                            `}
-                        </div>
-                    </div>
-                `;
-            }
-        }
-
-        // Initialize
-        let viewer;
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
         
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('DHG Bid - Bidder View Loaded');
-            viewer = new AuctionViewer();
+        window.auctions = {};
+
+        // Listen for auction changes
+        const auctionsRef = ref(database, 'auctions');
+        onValue(auctionsRef, (snapshot) => {
+            window.auctions = snapshot.val() || {};
+            renderAuctions();
         });
 
         // Place Bid
-        function placeBid(auctionId) {
-            if (!viewer) {
-                showNotification('System not ready. Please refresh the page.', true);
+        window.placeBid = function(auctionId) {
+            const nameInput = document.getElementById(`name-${auctionId}`);
+            const bidInput = document.getElementById(`bid-${auctionId}`);
+            const bidderName = nameInput.value.trim();
+            const amount = parseFloat(bidInput.value);
+            
+            const auction = window.auctions[auctionId];
+            if (!auction) return;
+            
+            if (Date.now() > auction.endTime) {
+                showNotification('This auction has ended!', true);
                 return;
             }
-            const nameInput = document.getElementById(`name-${auctionId}`);
-            const input = document.getElementById(`bid-${auctionId}`);
-            const bidderName = nameInput.value.trim();
-            const amount = parseFloat(input.value);
             
             if (!bidderName) {
                 showNotification('Please enter your name', true);
@@ -822,29 +576,148 @@
                 return;
             }
             
-            if (isNaN(amount)) {
-                showNotification('Please enter a valid bid amount', true);
+            if (isNaN(amount) || amount <= auction.currentBid) {
+                showNotification(`Bid must be higher than ₵${auction.currentBid.toFixed(2)}`, true);
                 return;
             }
             
-            if (viewer.placeBid(auctionId, amount, bidderName)) {
-                input.value = '';
+            const bidRef = push(ref(database, `auctions/${auctionId}/bids`));
+            const bid = {
+                amount: amount,
+                bidderName: bidderName,
+                timestamp: Date.now()
+            };
+            
+            const updates = {};
+            updates[`auctions/${auctionId}/bids/${bidRef.key}`] = bid;
+            updates[`auctions/${auctionId}/currentBid`] = amount;
+            
+            update(ref(database), updates).then(() => {
+                showNotification(`Bid placed: ₵${amount.toFixed(2)}!`);
+                bidInput.value = '';
                 nameInput.value = '';
+            }).catch((error) => {
+                showNotification('Error placing bid: ' + error.message, true);
+            });
+        };
+
+        function renderAuctions() {
+            const grid = document.getElementById('auctionsGrid');
+            const auctionArray = Object.values(window.auctions);
+            const activeAuctions = auctionArray.filter(a => Date.now() < a.endTime);
+            const endedAuctions = auctionArray.filter(a => Date.now() >= a.endTime);
+            
+            if (auctionArray.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">🔨</div>
+                        <p>No active auctions at the moment.<br>Check back soon!</p>
+                    </div>
+                `;
+            } else {
+                const allAuctions = [...activeAuctions, ...endedAuctions];
+                grid.innerHTML = allAuctions.map(auction => renderAuctionCard(auction)).join('');
+                updateTimers();
             }
-        }
-        
-        // Manual Refresh
-        function refreshAuctions() {
-            if (!viewer) {
-                showNotification('System not ready.', true);
-                return;
-            }
-            viewer.auctions = viewer.loadAuctions();
-            viewer.render();
-            showNotification('Auctions refreshed!');
+            
+            // Update stats
+            document.getElementById('activeCount').textContent = activeAuctions.length;
+            const totalBids = auctionArray.reduce((sum, a) => sum + (a.bids ? Object.keys(a.bids).length : 0), 0);
+            document.getElementById('totalBids').textContent = totalBids;
+            const highestBid = Math.max(0, ...auctionArray.map(a => a.currentBid));
+            document.getElementById('highestBid').textContent = `₵${highestBid.toFixed(0)}`;
         }
 
-        // Notification System
+        function renderAuctionCard(auction) {
+            const isEnded = Date.now() >= auction.endTime;
+            const statusBadge = isEnded 
+                ? '<div class="auction-status status-ended">Ended</div>'
+                : '<div class="auction-status">Live</div>';
+            
+            const imageContent = auction.image 
+                ? `<img src="${auction.image}" alt="${auction.name}">`
+                : '<span style="font-size: 4rem; position: relative; z-index: 1;">🏷️</span>';
+            
+            const bidsCount = auction.bids ? Object.keys(auction.bids).length : 0;
+
+            return `
+                <div class="auction-card ${isEnded ? 'ended' : ''}">
+                    ${statusBadge}
+                    <div class="auction-image">
+                        ${imageContent}
+                    </div>
+                    <div class="auction-content">
+                        <h3 class="auction-title">${auction.name}</h3>
+                        <p class="auction-description">${auction.description}</p>
+                        
+                        <div class="auction-meta">
+                            <div class="meta-item">
+                                <div class="meta-label">Current Bid</div>
+                                <div class="meta-value current-bid">₵${auction.currentBid.toFixed(2)}</div>
+                            </div>
+                            <div class="meta-item">
+                                <div class="meta-label">Total Bids</div>
+                                <div class="meta-value">${bidsCount}</div>
+                            </div>
+                        </div>
+                        
+                        <div class="timer" id="timer-${auction.id}"></div>
+                        
+                        ${!isEnded ? `
+                            <input type="text" 
+                                   class="bid-name-input" 
+                                   id="name-${auction.id}" 
+                                   placeholder="Your Name"
+                                   maxlength="50">
+                            <div class="bid-section">
+                                <input type="number" 
+                                       class="bid-input" 
+                                       id="bid-${auction.id}" 
+                                       placeholder="${(auction.currentBid + 1).toFixed(2)}"
+                                       step="0.01"
+                                       min="${(auction.currentBid + 0.01).toFixed(2)}">
+                                <button class="btn btn-bid" onclick="placeBid('${auction.id}')">Place Bid</button>
+                            </div>
+                        ` : `
+                            <div style="text-align: center; padding: 1rem; background: var(--bg); border: 1px solid var(--border); border-radius: 8px;">
+                                <strong>Auction Ended</strong><br>
+                                Final Bid: ₵${auction.currentBid.toFixed(2)}
+                            </div>
+                        `}
+                    </div>
+                </div>
+            `;
+        }
+
+        function updateTimers() {
+            Object.values(window.auctions).forEach(auction => {
+                const timerEl = document.getElementById(`timer-${auction.id}`);
+                if (!timerEl) return;
+
+                const remaining = Math.max(0, auction.endTime - Date.now());
+                const hours = Math.floor(remaining / (1000 * 60 * 60));
+                const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((remaining % (1000 * 60)) / 1000);
+
+                timerEl.innerHTML = `
+                    <div class="timer-segment">
+                        <div class="timer-value">${hours.toString().padStart(2, '0')}</div>
+                        <div class="timer-label">Hours</div>
+                    </div>
+                    <div class="timer-segment">
+                        <div class="timer-value">${minutes.toString().padStart(2, '0')}</div>
+                        <div class="timer-label">Mins</div>
+                    </div>
+                    <div class="timer-segment">
+                        <div class="timer-value">${seconds.toString().padStart(2, '0')}</div>
+                        <div class="timer-label">Secs</div>
+                    </div>
+                `;
+            });
+        }
+
+        setInterval(updateTimers, 1000);
+
         function showNotification(message, isError = false) {
             const notification = document.createElement('div');
             notification.className = `notification ${isError ? 'error' : ''}`;
